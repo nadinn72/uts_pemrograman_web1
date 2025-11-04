@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Buku - BookStore</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="stok-page">
+    <header class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="dashboard.html" class="back-btn">← Kembali ke Dashboard</a>
+                <div class="header-title">
+                    <h1>Katalog Buku</h1>
+                    <p>Kelola stok dan informasi buku</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container">
+            <div class="page-actions">
+                <button id="addBookBtn" class="btn-primary">+ Tambah Buku Baru</button>
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <h3>Total Buku</h3>
+                        <span id="total-books">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Stok</h3>
+                        <span id="total-stock">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="books-table-container">
+                <table class="books-table">
+                    <thead>
+                        <tr>
+                            <th>Cover</th>
+                            <th>Informasi Buku</th>
+                            <th>Kode</th>
+                            <th>Jenis</th>
+                            <th>Edisi</th>
+                            <th>Stok</th>
+                            <th>Harga</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="booksTableBody">
+                        <!-- Data buku akan diisi oleh JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Tambah Buku -->
+    <div id="addBookModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Tambah Buku Baru</h2>
+            <form id="addBookForm">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Kode Barang</label>
+                        <input type="text" id="newKodeBarang" placeholder="ASIP4301" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Nama Barang</label>
+                        <input type="text" id="newNamaBarang" placeholder="Nama buku" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Jenis Barang</label>
+                        <input type="text" id="newJenisBarang" placeholder="Buku Ajar" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Edisi</label>
+                        <input type="text" id="newEdisi" placeholder="1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Stok</label>
+                        <input type="number" id="newStok" placeholder="100" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Harga</label>
+                        <input type="text" id="newHarga" placeholder="Rp 150.000" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>URL Cover</label>
+                    <input type="text" id="newCover" placeholder="img/buku.jpg" required>
+                </div>
+                <button type="submit" class="btn-primary">Tambah Buku</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/stok.js"></script>
+</body>
+</html>

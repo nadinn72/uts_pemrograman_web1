@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking - BookStore</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="tracking-page">
+    <header class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="dashboard.html" class="back-btn">← Kembali ke Dashboard</a>
+                <div class="header-title">
+                    <h1>Tracking Pengiriman</h1>
+                    <p>Lacak status pengiriman pesanan Anda</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container">
+            <div class="tracking-search-card">
+                <h2>Cari Pengiriman</h2>
+                <p>Masukkan nomor delivery order untuk melacak pengiriman</p>
+                <div class="search-container">
+                    <input type="text" id="trackingNumber" placeholder="Contoh: 20230012">
+                    <button id="searchTracking" class="btn-primary">Cari Pengiriman</button>
+                </div>
+            </div>
+            
+            <div id="trackingResult" class="tracking-result">
+                <div class="tracking-placeholder">
+                    <div class="placeholder-icon">📦</div>
+                    <h3>Masukkan nomor delivery order</h3>
+                    <p>Hasil tracking akan ditampilkan di sini</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/tracking.js"></script>
+</body>
+</html>

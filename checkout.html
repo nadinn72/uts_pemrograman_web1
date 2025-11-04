@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Pink BookStore</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="checkout-page">
+    <header class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="dashboard.html" class="back-btn">← Kembali ke Dashboard</a>
+                <div class="header-title">
+                    <h1>Checkout Pemesanan</h1>
+                    <p>Lengkapi informasi pemesanan Anda</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="container">
+            <div class="checkout-container">
+                <div class="order-summary">
+                    <h2>Ringkasan Pesanan</h2>
+                    <div id="orderItems" class="order-items">
+                        <!-- Item pesanan akan diisi oleh JavaScript -->
+                    </div>
+                    <div class="order-summary-footer">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">Rp 0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Ongkos Kirim:</span>
+                            <span id="shipping">Rp 15.000</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="totalAmount">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="customer-info">
+                    <form id="customerForm">
+                        <div class="form-section">
+                            <h2>Informasi Pemesan</h2>
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label>Nama Lengkap</label>
+                                    <input type="text" id="customerName" placeholder="Nama lengkap" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Email</label>
+                                    <input type="email" id="customerEmail" placeholder="email@example.com" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label>Nomor Telepon</label>
+                                    <input type="tel" id="customerPhone" placeholder="08xxxxxxxxxx" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Metode Pembayaran</label>
+                                    <select id="paymentMethod" required>
+                                        <option value="">Pilih metode</option>
+                                        <option value="transfer">Transfer Bank</option>
+                                        <option value="credit">Kartu Kredit</option>
+                                        <option value="cod">COD (Bayar di Tempat)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Alamat Lengkap</label>
+                                <textarea id="customerAddress" placeholder="Alamat lengkap pengiriman" rows="3" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h2>Informasi Pengiriman</h2>
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label>Kurir</label>
+                                    <select id="shippingMethod" required>
+                                        <option value="">Pilih kurir</option>
+                                        <option value="jne">JNE</option>
+                                        <option value="pos">Pos Indonesia</option>
+                                        <option value="tiki">TIKI</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Estimasi Pengiriman</label>
+                                    <input type="text" id="estimatedDelivery" placeholder="2-3 hari" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-large">Proses Pemesanan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content pink-modal">
+            <div class="success-content">
+                <div class="success-icon">✅</div>
+                <h2>Pemesanan Berhasil!</h2>
+                <p>Terima kasih telah berbelanja di Pink BookStore</p>
+                <div class="order-details" id="successOrderDetails">
+                    <!-- Detail pesanan akan diisi oleh JavaScript -->
+                </div>
+                <div class="success-actions">
+                    <button class="btn-track" onclick="viewOrderHistory()">Lihat Riwayat</button>
+                    <button class="btn-home" onclick="goToDashboard()">Kembali ke Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

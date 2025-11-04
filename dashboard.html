@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Pink BookStore</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-page">
+    <div class="pink-background"></div>
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">📚</div>
+                    <h1 class="logo">Pink BookStore</h1>
+                </div>
+                <div class="user-info">
+                    <span id="greeting"></span>
+                    <button id="cart-btn" class="btn-pink-outline">🛒 <span id="cart-count">0</span></button>
+                    <button id="logoutBtn" class="btn-pink-light">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <section class="welcome-section">
+                <h2 id="welcome-title" class="welcome-title">Selamat Datang di Pink BookStore</h2>
+                <p class="welcome-subtitle">Temukan buku favorit Anda dalam nuansa pink yang menyenangkan</p>
+            </section>
+            
+            <section class="quick-actions">
+                <h3 class="section-title">Menu Utama</h3>
+                <div class="dashboard-grid">
+                    <a href="stok.html" class="dashboard-card pink-card">
+                        <div class="card-icon">📋</div>
+                        <h3>Informasi Stok/Katalog</h3>
+                        <p>Lihat dan kelola stok buku yang tersedia</p>
+                    </a>
+                    
+                    <a href="tracking.html" class="dashboard-card pink-card">
+                        <div class="card-icon">🚚</div>
+                        <h3>Tracking Pengiriman</h3>
+                        <p>Lacak status pengiriman pesanan</p>
+                    </a>
+                    
+                    <a href="checkout.html" class="dashboard-card pink-card">
+                        <div class="card-icon">📊</div>
+                        <h3>Laporan Pemesanan</h3>
+                        <p>Lihat laporan pemesanan buku</p>
+                    </a>
+                    
+                    <a href="history.html" class="dashboard-card pink-card">
+                        <div class="card-icon">📝</div>
+                        <h3>History Transaksi</h3>
+                        <p>Riwayat transaksi yang telah dilakukan</p>
+                    </a>
+                </div>
+            </section>
+
+            <section class="categories-section">
+                <h3 class="section-title">Kategori Buku</h3>
+                <div class="categories-grid">
+                    <div class="category-card pink-card" onclick="filterByCategory('Buku Ajar')">
+                        <div class="category-icon">📚</div>
+                        <h4>Buku Ajar</h4>
+                        <p>Buku pelajaran dan referensi akademik</p>
+                    </div>
+                    <div class="category-card pink-card" onclick="showAllBooks()">
+                        <div class="category-icon">📖</div>
+                        <h4>Semua Buku</h4>
+                        <p>Lihat seluruh koleksi buku</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="featured-books">
+                <div class="section-header">
+                    <h3 class="section-title">Katalog Buku Tersedia</h3>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Cari buku...">
+                        <button onclick="searchBooks()">🔍</button>
+                    </div>
+                </div>
+                <div class="books-grid" id="featured-books">
+                    <!-- Buku akan ditampilkan di sini -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal Keranjang -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content pink-modal">
+            <span class="close">&times;</span>
+            <h2>🛒 Keranjang Belanja</h2>
+            <div id="cart-items" class="cart-items">
+                <!-- Item keranjang akan ditampilkan di sini -->
+            </div>
+            <div class="cart-total">
+                <h3>Total: Rp <span id="cart-total-amount">0</span></h3>
+                <button class="btn-checkout" onclick="goToCheckout()">Lanjut ke Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail Buku -->
+    <div id="book-detail-modal" class="modal">
+        <div class="modal-content pink-modal">
+            <span class="close">&times;</span>
+            <div id="book-detail-content">
+                <!-- Konten detail buku akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Screen Image Modal -->
+    <div id="fullscreen-image-container" class="fullscreen-image-container">
+        <button class="fullscreen-close" onclick="closeFullScreenImage()">×</button>
+        <img id="fullscreen-image" class="fullscreen-image" src="" alt="Full Screen Book Cover">
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

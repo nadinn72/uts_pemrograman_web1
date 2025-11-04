@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori Buku - Pink BookStore</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page">
+    <div class="pink-background"></div>
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <a href="dashboard.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 1rem;">
+                        <div class="logo-icon">📚</div>
+                        <h1 class="logo">Pink BookStore</h1>
+                    </a>
+                </div>
+                <div class="user-info">
+                    <span id="greeting"></span>
+                    <button id="cart-btn" class="btn-pink-outline">🛒 <span id="cart-count">0</span></button>
+                    <button id="logoutBtn" class="btn-pink-light">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <section class="welcome-section">
+                <h2 class="welcome-title">Kategori Buku</h2>
+                <p class="welcome-subtitle">Telusuri buku berdasarkan kategori yang tersedia</p>
+            </section>
+
+            <section class="categories-section">
+                <h3 class="section-title">Pilih Kategori</h3>
+                <div class="categories-grid">
+                    <div class="category-card pink-card" onclick="filterByCategory('Buku Ajar')">
+                        <div class="category-icon">📚</div>
+                        <h4>Buku Ajar</h4>
+                        <p>Buku pelajaran dan referensi akademik</p>
+                    </div>
+                    <div class="category-card pink-card" onclick="filterByCategory('Buku Referensi')">
+                        <div class="category-icon">📖</div>
+                        <h4>Buku Referensi</h4>
+                        <p>Buku referensi dan panduan belajar</p>
+                    </div>
+                    <div class="category-card pink-card" onclick="filterByCategory('Novel')">
+                        <div class="category-icon">📓</div>
+                        <h4>Novel</h4>
+                        <p>Karya fiksi dan cerita naratif</p>
+                    </div>
+                    <div class="category-card pink-card" onclick="showAllBooks()">
+                        <div class="category-icon">📕</div>
+                        <h4>Semua Buku</h4>
+                        <p>Lihat seluruh koleksi buku</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="featured-books">
+                <div class="section-header">
+                    <h3 class="section-title" id="category-title">Semua Buku Tersedia</h3>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Cari buku...">
+                        <button onclick="searchBooks()">🔍</button>
+                    </div>
+                </div>
+                <div class="books-grid" id="featured-books">
+                    <!-- Buku akan ditampilkan di sini -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal Keranjang -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content pink-modal">
+            <span class="close">&times;</span>
+            <h2>🛒 Keranjang Belanja</h2>
+            <div id="cart-items" class="cart-items">
+                <!-- Item keranjang akan ditampilkan di sini -->
+            </div>
+            <div class="cart-total">
+                <h3>Total: Rp <span id="cart-total-amount">0</span></h3>
+                <button class="btn-checkout" onclick="goToCheckout()">Lanjut ke Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail Buku -->
+    <div id="book-detail-modal" class="modal">
+        <div class="modal-content pink-modal">
+            <span class="close">&times;</span>
+            <div id="book-detail-content">
+                <!-- Konten detail buku akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Screen Image Modal -->
+    <div id="fullscreen-image-container" class="fullscreen-image-container">
+        <button class="fullscreen-close" onclick="closeFullScreenImage()">×</button>
+        <img id="fullscreen-image" class="fullscreen-image" src="" alt="Full Screen Book Cover">
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+        // Fungsi khusus untuk halaman kategori
+        function filterByCategory(category) {
+            const books = getBooksData();
+            const filteredBooks = books.filter(book => book.jenisBarang === category);
+            
+            const featuredBooksContainer = document.getElementById('featured-books');
+            const categoryTitle = document.getElementById('category-title');
+            
+            if (featuredBooksContainer) {
+                featuredBooksContainer.innerHTML = '';
+                categoryTitle.textContent = `Buku ${category}`;
+                
+                if (filteredBooks.length === 0) {
+                    featuredBooksContainer.innerHTML = `
+                        <div class="no-books" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                            <p style="color: var(--text-light); font-style: italic;">Tidak ada buku dalam kategori ${category}</p>
+                        </div>
+                    `;
+                } else {
+                    filteredBooks.forEach((book, index) => {
+                        const bookCard = createBookCard(book, index);
+                        featuredBooksContainer.appendChild(bookCard);
+                    });
+                }
+            }
+            
+            showNotification(`Menampilkan buku kategori: ${category}`);
+        }
+
+        function showAllBooks() {
+            const books = getBooksData();
+            const featuredBooksContainer = document.getElementById('featured-books');
+            const categoryTitle = document.getElementById('category-title');
+            
+            if (featuredBooksContainer) {
+                featuredBooksContainer.innerHTML = '';
+                categoryTitle.textContent = 'Semua Buku Tersedia';
+                books.forEach((book, index) => {
+                    const bookCard = createBookCard(book, index);
+                    featuredBooksContainer.appendChild(bookCard);
+                });
+            }
+            
+            showNotification('Menampilkan semua buku');
+        }
+
+        // Inisialisasi halaman
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Set greeting
+            const greetingElement = document.getElementById('greeting');
+            const hour = new Date().getHours();
+            let greeting = '';
+            
+            if (hour < 12) greeting = 'Selamat Pagi';
+            else if (hour < 18) greeting = 'Selamat Siang';
+            else greeting = 'Selamat Sore';
+            
+            greetingElement.textContent = `${greeting}, ${currentUser.nama}!`;
+
+            // Tampilkan semua buku saat pertama kali
+            showAllBooks();
+            updateCartCount();
+
+            // Event listeners
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('currentUser');
+                showNotification('Logout berhasil!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            });
+
+            document.getElementById('cart-btn').addEventListener('click', function() {
+                displayCartItems();
+                document.getElementById('cart-modal').style.display = 'block';
+            });
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchBooks();
+                }
+            });
+
+            // Close modal events
+            document.querySelectorAll('.close').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.getElementById('cart-modal').style.display = 'none';
+                    document.getElementById('book-detail-modal').style.display = 'none';
+                });
+            });
+
+            window.addEventListener('click', function(e) {
+                if (e.target === document.getElementById('cart-modal')) {
+                    document.getElementById('cart-modal').style.display = 'none';
+                }
+                if (e.target === document.getElementById('book-detail-modal')) {
+                    document.getElementById('book-detail-modal').style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
